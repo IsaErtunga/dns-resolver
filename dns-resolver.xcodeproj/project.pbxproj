@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		143836532A7EBD3600526417 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836522A7EBD3600526417 /* main.cpp */; };
+		143836672A7FC88700526417 /* DNSHeader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836652A7FC88700526417 /* DNSHeader.cpp */; };
+		1438366A2A7FCD1F00526417 /* DNSQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836682A7FCD1F00526417 /* DNSQuestion.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		1438364F2A7EBD3600526417 /* dns-resolver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "dns-resolver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		143836522A7EBD3600526417 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		143836652A7FC88700526417 /* DNSHeader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSHeader.cpp; sourceTree = "<group>"; };
+		143836662A7FC88700526417 /* DNSHeader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSHeader.hpp; sourceTree = "<group>"; };
+		143836682A7FCD1F00526417 /* DNSQuestion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSQuestion.cpp; sourceTree = "<group>"; };
+		143836692A7FCD1F00526417 /* DNSQuestion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSQuestion.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +63,21 @@
 		143836512A7EBD3600526417 /* dns-resolver */ = {
 			isa = PBXGroup;
 			children = (
+				143836642A7FC82500526417 /* src */,
 				143836522A7EBD3600526417 /* main.cpp */,
 			);
 			path = "dns-resolver";
+			sourceTree = "<group>";
+		};
+		143836642A7FC82500526417 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				143836652A7FC88700526417 /* DNSHeader.cpp */,
+				143836662A7FC88700526417 /* DNSHeader.hpp */,
+				143836682A7FCD1F00526417 /* DNSQuestion.cpp */,
+				143836692A7FCD1F00526417 /* DNSQuestion.hpp */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +137,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				143836672A7FC88700526417 /* DNSHeader.cpp in Sources */,
 				143836532A7EBD3600526417 /* main.cpp in Sources */,
+				1438366A2A7FCD1F00526417 /* DNSQuestion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

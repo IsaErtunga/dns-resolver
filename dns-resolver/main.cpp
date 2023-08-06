@@ -1,14 +1,7 @@
-//
-//  main.cpp
-//  dns-resolver
-//
-//  Created by Isa Ertunga on 2023-08-05.
-//
+#include "src/DNSHeader.hpp"
 
-#include <iostream>
-
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+int main(int argc, const char* argv[]) {
+    DNSHeader h(0x1314, 0, 1, 0, 0, 0);
+    std::cout << h.HeaderToBytes();
     return 0;
 }
