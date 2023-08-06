@@ -21,6 +21,7 @@ public:
     DNSHeader(int id, int flags, int numQuestions, int numAnswers, int numAuthorities, int numAdditionals);
     
     std::string HeaderToBytes();
+    std::vector<uint16_t> HeaderToBytes2();
 };
 
 #endif /* DNSHeader_hpp */

@@ -4,10 +4,13 @@
 #include <vector>
 
 class DNSQuestion {
+private:
+    int type;
+    int klass;
+    std::vector<unsigned char> name;
+    
 public:
-    std::vector<unsigned char> Name;
-    int Type;
-    int Class;
+    DNSQuestion();
 };
 
 #endif /* DNSQuestion_hpp */
