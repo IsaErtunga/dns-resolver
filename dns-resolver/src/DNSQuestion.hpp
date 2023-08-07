@@ -7,10 +7,12 @@ class DNSQuestion {
 private:
     int type;
     int klass;
-    std::vector<uint8_t> name;
+    std::vector<uint16_t> name;
     
 public:
-    DNSQuestion(int type, int klass, std::vector<uint8_t> name);
+    DNSQuestion() {};
+    DNSQuestion(int type, int klass, std::vector<uint16_t> name);
+    std::vector<uint16_t> QuestionToBytes();
 };
 
 #endif /* DNSQuestion_hpp */
