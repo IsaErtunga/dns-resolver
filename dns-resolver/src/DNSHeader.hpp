@@ -22,6 +22,7 @@ public:
     
     std::string HeaderToBytes();
     std::vector<uint16_t> HeaderToBytes2();
+    std::vector<uint32_t> HeaderToBytes3();
 };
 
 #endif /* DNSHeader_hpp */

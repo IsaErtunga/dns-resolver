@@ -10,6 +10,7 @@
 		143836532A7EBD3600526417 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836522A7EBD3600526417 /* main.cpp */; };
 		143836672A7FC88700526417 /* DNSHeader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836652A7FC88700526417 /* DNSHeader.cpp */; };
 		1438366A2A7FCD1F00526417 /* DNSQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836682A7FCD1F00526417 /* DNSQuestion.cpp */; };
+		1438366D2A80D9B300526417 /* DNSQueryBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1438366B2A80D9B300526417 /* DNSQueryBuilder.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		143836662A7FC88700526417 /* DNSHeader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSHeader.hpp; sourceTree = "<group>"; };
 		143836682A7FCD1F00526417 /* DNSQuestion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSQuestion.cpp; sourceTree = "<group>"; };
 		143836692A7FCD1F00526417 /* DNSQuestion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSQuestion.hpp; sourceTree = "<group>"; };
+		1438366B2A80D9B300526417 /* DNSQueryBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSQueryBuilder.cpp; sourceTree = "<group>"; };
+		1438366C2A80D9B300526417 /* DNSQueryBuilder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSQueryBuilder.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +79,8 @@
 				143836662A7FC88700526417 /* DNSHeader.hpp */,
 				143836682A7FCD1F00526417 /* DNSQuestion.cpp */,
 				143836692A7FCD1F00526417 /* DNSQuestion.hpp */,
+				1438366B2A80D9B300526417 /* DNSQueryBuilder.cpp */,
+				1438366C2A80D9B300526417 /* DNSQueryBuilder.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 			files = (
 				143836672A7FC88700526417 /* DNSHeader.cpp in Sources */,
 				143836532A7EBD3600526417 /* main.cpp in Sources */,
+				1438366D2A80D9B300526417 /* DNSQueryBuilder.cpp in Sources */,
 				1438366A2A7FCD1F00526417 /* DNSQuestion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

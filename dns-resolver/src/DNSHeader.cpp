@@ -64,3 +64,14 @@ std::vector<uint16_t> DNSHeader::HeaderToBytes2() {
         static_cast<uint16_t>(this->numAdditionals & 0xFFFF),
     };
 }
+
+std::vector<uint32_t> DNSHeader::HeaderToBytes3() {
+    return std::vector<uint32_t> {
+        static_cast<uint32_t>(this->id),
+        static_cast<uint32_t>(this->flags),
+        static_cast<uint32_t>(this->numQuestions),
+        static_cast<uint32_t>(this->numAnswers),
+        static_cast<uint32_t>(this->numAuthorities),
+        static_cast<uint32_t>(this->numAdditionals),
+    };
+}
