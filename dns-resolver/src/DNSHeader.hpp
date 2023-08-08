@@ -20,7 +20,7 @@ private:
 public:
     DNSHeader() {};
     DNSHeader(int id, int flags, int numQuestions, int numAnswers, int numAuthorities, int numAdditionals);
-    std::vector<uint16_t> HeaderToBytes();
+    std::vector<uint8_t> ToBytes();
 };
 
 #endif /* DNSHeader_hpp */

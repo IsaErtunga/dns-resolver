@@ -1,17 +1,20 @@
 #include "DNSQueryBuilder.hpp"
 
-std::vector<uint16_t> encodeDnsName(std::string domainName) {
-    std::vector<uint16_t> encoded;
+#define TYPE_A   1
+#define CLASS_IN 1
+
+std::vector<uint8_t> encodeDnsName(std::string domainName) {
+    std::vector<uint8_t> encoded;
     std::vector<std::string> domainNameSplit = split(domainName, ".");
     
     // Stores length of the word,
     // followed by the ASCII code of each char in the word in hex.
     // google.com -> \x06\x67\x6f\x6f\x67\x6c\x65\x03\x63\x6f\x6d\x00
     for (const auto& word : domainNameSplit) {
-        encoded.push_back(static_cast<uint16_t>(word.size()));
+        encoded.push_back(static_cast<uint8_t>(word.size()));
         
         for (unsigned char c : word) {
-            encoded.push_back(static_cast<uint16_t>(c));
+            encoded.push_back(static_cast<uint8_t>(c));
         }
     }
     
@@ -32,23 +35,22 @@ std::vector<std::string> split(std::string str, std::string del) {
 }
 
 void printHex(uint32_t val) {
-    std::cout << "\\x" << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(val);
+    std::cout << "\\x" << std::setw(2) << std::setfill('0') << std::hex << val;
 }
 
-int TYPE_A = 1;
-int CLASS_IN = 1;
-
-void BuildQuery(std::string dnsName, int recordType) {
-    std::vector<uint16_t> nameBytes = encodeDnsName(dnsName);
-    int id = rand() % 65535;
+std::vector<uint8_t> BuildQuery(std::string dnsName, int recordType) {
+    std::vector<uint8_t> nameBytes = encodeDnsName(dnsName);
+    int id = 0x8298; // rand() % 65535
     int recur = 1 << 8;
     
-    DNSHeader header(id, recur, 1, 0, 0, 0);
-    DNSQuestion question(recordType, CLASS_IN, nameBytes);
-    
-    std::vector<uint16_t> headerBytes = header.HeaderToBytes();
-    std::vector<uint16_t> questionBytes = question.QuestionToBytes();
-    for (const auto& el : questionBytes) {
-        std::cout << el << ", ";
+    DNSHeader header{id, recur, 1, 0, 0, 0};
+    DNSQuestion question{recordType, CLASS_IN, nameBytes};
+
+    std::vector<uint8_t> headerBytes = header.ToBytes();
+    std::vector<uint8_t> questionBytes = question.ToBytes();
+    std::vector<uint8_t> queryBytes{headerBytes.begin(), headerBytes.end()};
+    for (const auto& qb : questionBytes) {
+        queryBytes.push_back(qb);
     }
+    return queryBytes;
 }

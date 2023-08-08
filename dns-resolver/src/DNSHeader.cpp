@@ -23,15 +23,19 @@ bool DNSHeader::validateParams(int id, int flags, int numQuestions, int numAnswe
             numAdditionals <= 0xFFFF;
 }
 
-std::vector<uint16_t> DNSHeader::HeaderToBytes() {
-    // Represents byte array
-    // Converts to unsigned 16-bit integers
-    return std::vector<uint16_t> {
-        static_cast<uint16_t>(this->id),
-        static_cast<uint16_t>(this->flags),
-        static_cast<uint16_t>(this->numQuestions),
-        static_cast<uint16_t>(this->numAnswers),
-        static_cast<uint16_t>(this->numAuthorities),
-        static_cast<uint16_t>(this->numAdditionals),
+std::vector<uint8_t> DNSHeader::ToBytes() {
+    return std::vector<uint8_t> {
+        static_cast<uint8_t>((this->id >> 8) & 0xFF),
+        static_cast<uint8_t>(this->id & 0xFF),
+        static_cast<uint8_t>((this->flags >> 8) & 0xFF),
+        static_cast<uint8_t>(this->flags & 0xFF),
+        static_cast<uint8_t>((this->numQuestions >> 8) & 0xFF),
+        static_cast<uint8_t>(this->numQuestions & 0xFF),
+        static_cast<uint8_t>((this->numAnswers >> 8) & 0xFF),
+        static_cast<uint8_t>(this->numAnswers & 0xFF),
+        static_cast<uint8_t>((this->numAuthorities >> 8) & 0xFF),
+        static_cast<uint8_t>(this->numAuthorities & 0xFF),
+        static_cast<uint8_t>((this->numAdditionals >> 8) & 0xFF),
+        static_cast<uint8_t>(this->numAdditionals & 0xFF),
     };
 }
