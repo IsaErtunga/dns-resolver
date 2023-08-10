@@ -12,7 +12,7 @@
 #include "DNSQuestion.hpp"
 
 enum RecordType {
-    TYPE_A = 0,
+    TYPE_A = 1,
 };
     
 void printHex(uint32_t val);
