@@ -1,7 +1,6 @@
 #include "DNSQueryBuilder.hpp"
 
-#define TYPE_A   1
-#define CLASS_IN 1
+const int CLASS_IN = 1;
 
 std::vector<uint8_t> encodeDnsName(std::string domainName) {
     std::vector<uint8_t> encoded;
@@ -38,9 +37,9 @@ void printHex(uint32_t val) {
     std::cout << "\\x" << std::setw(2) << std::setfill('0') << std::hex << val;
 }
 
-std::vector<uint8_t> BuildQuery(std::string dnsName, int recordType) {
+std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
     std::vector<uint8_t> nameBytes = encodeDnsName(dnsName);
-    int id = 0x8298; // rand() % 65535
+    int id = rand() % 65535;
     int recur = 1 << 8;
     
     DNSHeader header{id, recur, 1, 0, 0, 0};

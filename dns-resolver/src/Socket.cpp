@@ -3,7 +3,7 @@
 #define IP_PROTOCOL 0
 #define LOCALHOST   "127.0.0.1"
 
-Socket::Socket(uint16_t port) {
+Socket::Socket(uint16_t port, const char* ip) {
     int socketFd = socket(AF_INET, SOCK_DGRAM, IP_PROTOCOL);
     if (socketFd < 0) {
         std::cerr << "Socket creation failed" << std::endl;
@@ -18,13 +18,13 @@ Socket::Socket(uint16_t port) {
     serverAdress.sin_port = htons(port);
     
     // Convert ipv4 address to binary
-    if (inet_pton(AF_INET, LOCALHOST, &serverAdress.sin_addr) <= 0) {
+    if (inet_pton(AF_INET, ip, &serverAdress.sin_addr) <= 0) {
         std::cerr << "Invalid ipv4 address" << std::endl;
         exit(EXIT_FAILURE);
     }
     
-    int status = connect(socketFd, (const struct sockaddr*)&serverAdress, sizeof(serverAdress));
-    if (status < 0) {
+    int conn = connect(socketFd, (const struct sockaddr*)&serverAdress, sizeof(serverAdress));
+    if (conn < 0) {
         std::cerr << "Socket connection failed" << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -37,5 +37,13 @@ Socket::~Socket() {
     close(this->socketFd);
 }
 
-void Socket::SendAndReceive() {
+std::vector<char> Socket::SendAndReceive(std::vector<uint8_t> msg) {
+    std::vector<char> buf(1024);
+    std::string msgStr{msg.begin(), msg.end()};
+    if (send(this->socketFd, msgStr.data(), msgStr.size(), 0) < 0) {
+        std::cerr << "Could not send message" << std::endl;
+        return buf;
+    }
+    read(this->socketFd, buf.data(), buf.size());
+    return buf;
 }
