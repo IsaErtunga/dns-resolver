@@ -1,4 +1,4 @@
-#include "socket.hpp"
+#include "Socket.hpp"
 
 #define IP_PROTOCOL 0
 #define LOCALHOST   "127.0.0.1"

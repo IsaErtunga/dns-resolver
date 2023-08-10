@@ -1,5 +1,5 @@
-#ifndef socket_hpp
-#define socket_hpp
+#ifndef Socket_hpp
+#define Socket_hpp
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -15,4 +15,4 @@ public:
     void SendAndReceive();
 };
 
-#endif /* socket_hpp */
+#endif /* Socket_hpp */

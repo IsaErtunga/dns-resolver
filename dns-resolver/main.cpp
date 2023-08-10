@@ -1,5 +1,5 @@
 #include "src/DNSQueryBuilder.hpp"
-#include "src/socket.hpp"
+#include "src/Socket.hpp"
 
 int main(int argc, const char* argv[]) {
     srand((unsigned int) std::time(nullptr));
