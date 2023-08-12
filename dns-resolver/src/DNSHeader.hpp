@@ -5,21 +5,21 @@
 #include <vector>
 #include <array>
 #include <stdexcept>
+#include <cstdint>
 
 class DNSHeader {
 private:
-    int id;
-    int flags;
-    int numQuestions = 0;
-    int numAnswers = 0;
-    int numAuthorities = 0;
-    int numAdditionals = 0;
-    
-    bool validateParams(int id, int flags, int numQuestions, int numAnswers, int numAuthorities, int numAdditionals);
+    uint16_t id;
+    uint16_t flags;
+    uint16_t numQuestions = 0;
+    uint16_t numAnswers = 0;
+    uint16_t numAuthorities = 0;
+    uint16_t numAdditionals = 0;
     
 public:
     DNSHeader() {};
-    DNSHeader(int id, int flags, int numQuestions, int numAnswers, int numAuthorities, int numAdditionals);
+    DNSHeader(uint16_t id, uint16_t flags, uint16_t numQuestions, uint16_t numAnswers, uint16_t numAuthorities, uint16_t numAdditionals);
+    static DNSHeader FromBytes(std::vector<uint8_t> bytes);
     std::vector<uint8_t> ToBytes();
 };
 

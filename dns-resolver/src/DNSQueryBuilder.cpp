@@ -39,8 +39,8 @@ void printHex(uint32_t val) {
 
 std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
     std::vector<uint8_t> nameBytes = encodeDnsName(dnsName);
-    int id = rand() % 65535;
-    int recur = 1 << 8;
+    uint16_t id = rand() % 65535;
+    uint16_t recur = 1 << 8;
     
     DNSHeader header{id, recur, 1, 0, 0, 0};
     DNSQuestion question{recordType, CLASS_IN, nameBytes};
@@ -52,4 +52,16 @@ std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
         queryBytes.push_back(qb);
     }
     return queryBytes;
+}
+
+void ParseResponse(std::vector<unsigned char> resp) {
+    std::vector<uint8_t> seg;
+    int i = 0;
+    int segEnd = 12; // Begin with header segment
+
+    // Parse header
+    while (i < segEnd) {
+        seg.push_back(static_cast<uint8_t>(resp[i]));
+        i++;
+    }
 }

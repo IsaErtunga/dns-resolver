@@ -1,8 +1,5 @@
 #include "Socket.hpp"
 
-#define IP_PROTOCOL 0
-#define LOCALHOST   "127.0.0.1"
-
 Socket::Socket(uint16_t port, const char* ip) {
     int socketFd = socket(AF_INET, SOCK_DGRAM, IP_PROTOCOL);
     if (socketFd < 0) {
@@ -37,8 +34,8 @@ Socket::~Socket() {
     close(this->socketFd);
 }
 
-std::vector<char> Socket::SendAndReceive(std::vector<uint8_t> msg) {
-    std::vector<char> buf(1024);
+std::vector<unsigned char> Socket::SendAndReceive(std::vector<uint8_t> msg) {
+    std::vector<unsigned char> buf(1024);
     std::string msgStr{msg.begin(), msg.end()};
     if (send(this->socketFd, msgStr.data(), msgStr.size(), 0) < 0) {
         std::cerr << "Could not send message" << std::endl;

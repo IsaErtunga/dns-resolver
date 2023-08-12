@@ -1,10 +1,6 @@
 #include "DNSHeader.hpp"
 
-DNSHeader::DNSHeader(int id, int flags, int numQuestions, int numAnswers, int numAuthorities, int numAdditionals) {
-    if (!this->validateParams(id, flags, numQuestions, numAnswers, numAuthorities, numAdditionals)) {
-        throw std::invalid_argument("invalid DNS header parameter");
-    }
-    
+DNSHeader::DNSHeader(uint16_t id, uint16_t flags, uint16_t numQuestions, uint16_t numAnswers, uint16_t numAuthorities, uint16_t numAdditionals) {
     this->id = id;
     this->flags = flags;
     this->numQuestions = numQuestions;
@@ -13,18 +9,27 @@ DNSHeader::DNSHeader(int id, int flags, int numQuestions, int numAnswers, int nu
     this->numAdditionals = numAdditionals;
 }
 
-bool DNSHeader::validateParams(int id, int flags, int numQuestions, int numAnswers, int numAuthorities, int numAdditionals) {
-    // 0xFFFF is the maximum two byte hex value and is equal to 65535
-    return  id <= 0xFFFF &&
-            flags <= 0xFFFF &&
-            numQuestions <= 0xFFFF &&
-            numAnswers <= 0xFFFF &&
-            numAuthorities <= 0xFFFF &&
-            numAdditionals <= 0xFFFF;
+DNSHeader DNSHeader::FromBytes(std::vector<uint8_t> bytes) {
+    // 0,  1  -> id
+    // 2,  3  -> flags
+    // 4,  5  -> numQuestions
+    // 6,  7  -> numAnswers
+    // 8,  9  -> numAuthorities
+    // 10, 11 -> numAdditionals
+    return DNSHeader{
+        static_cast<uint16_t>((bytes[0]  << 8) | bytes[1]),
+        static_cast<uint16_t>((bytes[2]  << 8) | bytes[3]),
+        static_cast<uint16_t>((bytes[4]  << 8) | bytes[5]),
+        static_cast<uint16_t>((bytes[6]  << 8) | bytes[7]),
+        static_cast<uint16_t>((bytes[8]  << 8) | bytes[9]),
+        static_cast<uint16_t>((bytes[10] << 8) | bytes[11]),
+    };
 }
 
 std::vector<uint8_t> DNSHeader::ToBytes() {
-    return std::vector<uint8_t> {
+    // Convert fields to 2 one-byte integers in hex format
+    // Bit-shift to get higher-order and lower-order bytes
+    return std::vector<uint8_t>{
         static_cast<uint8_t>((this->id >> 8) & 0xFF),
         static_cast<uint8_t>(this->id & 0xFF),
         static_cast<uint8_t>((this->flags >> 8) & 0xFF),
