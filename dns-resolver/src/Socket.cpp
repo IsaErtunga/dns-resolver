@@ -41,6 +41,7 @@ std::vector<unsigned char> Socket::SendAndReceive(std::vector<uint8_t> msg) {
         std::cerr << "Could not send message" << std::endl;
         return buf;
     }
+    // Can pass size with vector length since unsigned char is 1 byte
     read(this->socketFd, buf.data(), buf.size());
     return buf;
 }

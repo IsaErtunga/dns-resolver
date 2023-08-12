@@ -2,7 +2,7 @@
 
 const int CLASS_IN = 1;
 
-std::vector<uint8_t> encodeDnsName(std::string domainName) {
+std::vector<uint8_t> encodeDomainName(std::string domainName) {
     std::vector<uint8_t> encoded;
     std::vector<std::string> domainNameSplit = split(domainName, ".");
     
@@ -38,7 +38,7 @@ void printHex(uint32_t val) {
 }
 
 std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
-    std::vector<uint8_t> nameBytes = encodeDnsName(dnsName);
+    std::vector<uint8_t> nameBytes = encodeDomainName(dnsName);
     uint16_t id = rand() % 65535;
     uint16_t recur = 1 << 8;
     
@@ -64,4 +64,16 @@ void ParseResponse(std::vector<unsigned char> resp) {
         seg.push_back(static_cast<uint8_t>(resp[i]));
         i++;
     }
+    DNSHeader header = DNSHeader::FromBytes(seg);
+    seg.clear();
+    
+    // Parse qestion
+    segEnd += 21;
+    while (i < segEnd) {
+        seg.push_back(static_cast<uint8_t>(resp[i]));
+        i++;
+    }
+    
+    DNSQuestion question = DNSQuestion::FromBytes(seg);
+    seg.clear();
 }
