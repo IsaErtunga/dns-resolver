@@ -73,7 +73,9 @@ void ParseResponse(std::vector<unsigned char> resp) {
         seg.push_back(static_cast<uint8_t>(resp[i]));
         i++;
     }
-    
     DNSQuestion question = DNSQuestion::FromBytes(seg);
     seg.clear();
+    
+    // Parse record
+    
 }
