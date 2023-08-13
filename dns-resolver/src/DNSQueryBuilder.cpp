@@ -1,7 +1,5 @@
 #include "DNSQueryBuilder.hpp"
 
-const int CLASS_IN = 1;
-
 std::vector<uint8_t> encodeDomainName(std::string domainName) {
     std::vector<uint8_t> encoded;
     std::vector<std::string> domainNameSplit = split(domainName, ".");
@@ -43,7 +41,7 @@ std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
     uint16_t recur = 1 << 8;
     
     DNSHeader header{id, recur, 1, 0, 0, 0};
-    DNSQuestion question{recordType, CLASS_IN, nameBytes};
+    DNSQuestion question{recordType, RecordClass::IN, nameBytes};
 
     std::vector<uint8_t> headerBytes = header.ToBytes();
     std::vector<uint8_t> questionBytes = question.ToBytes();
@@ -54,34 +52,44 @@ std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
     return queryBytes;
 }
 
-void ParseResponse(std::vector<unsigned char> resp) {
-    std::vector<uint8_t> seg;
-    int i = 0;
-    int segEnd = 12; // Begin with header segment
+std::vector<uint8_t> decodeDomainName(std::vector<uint8_t> resp, std::vector<uint8_t>::iterator& it) {
+    std::vector<uint8_t> name;
+    while (*it != 0) {
+        // Max length for domain name component is 63
+        if (*it > 63) {
+            int offset = (*it & 0x3F) + *(++it);
+            int end = offset + resp[offset] + 1;
+            int ptr = offset;
+            while (resp[ptr] != 0) {
+                ptr++;
+                if (ptr == end) {
+                    if (resp[ptr] == 0) {
+                        break;
+                    }
+                    end = end + resp[ptr] + 1;
+                    continue;
+                }
+                name.push_back(resp[ptr]);
+            }
+            it += 2;
+            break;
+        } else {
+            int end = static_cast<int>(*it);
+            for (int i = 0; i < end; i++) {
+                it++;
+                name.push_back(*it);
+            }
+        }
+        it++;
+    }
+    
+    it++;
+    return name;
+}
 
-    // Parse header
-    while (i < segEnd) {
-        seg.push_back(static_cast<uint8_t>(resp[i]));
-        i++;
-    }
-    DNSHeader header = DNSHeader::FromBytes(seg);
-    seg.clear();
-    
-    // Parse qestion
-    segEnd += 21;
-    while (i < segEnd) {
-        seg.push_back(static_cast<uint8_t>(resp[i]));
-        i++;
-    }
-    DNSQuestion question = DNSQuestion::FromBytes(seg);
-    seg.clear();
-    
-    // Parse record
-    segEnd += 10;
-    while (i < segEnd) {
-        seg.push_back(static_cast<uint8_t>(resp[i]));
-        i++;
-    }
-    DNSRecord::FromBytes(seg);
-    seg.clear();
+void ParseResponse(std::vector<unsigned char> resp) {
+    std::vector<uint8_t>::iterator it = resp.begin();
+    DNSHeader header = DNSHeader::FromBytes(it);
+    DNSQuestion question = DNSQuestion::FromBytes(resp, it, &decodeDomainName);
+    DNSRecord::FromBytes(resp, it, &decodeDomainName);
 }

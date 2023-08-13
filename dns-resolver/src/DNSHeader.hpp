@@ -19,7 +19,7 @@ private:
 public:
     DNSHeader() {};
     DNSHeader(uint16_t id, uint16_t flags, uint16_t numQuestions, uint16_t numAnswers, uint16_t numAuthorities, uint16_t numAdditionals);
-    static DNSHeader FromBytes(std::vector<uint8_t> bytes);
+    static DNSHeader FromBytes(std::vector<uint8_t>::iterator& it);
     std::vector<uint8_t> ToBytes();
 };
 

@@ -9,20 +9,26 @@ DNSHeader::DNSHeader(uint16_t id, uint16_t flags, uint16_t numQuestions, uint16_
     this->numAdditionals = numAdditionals;
 }
 
-DNSHeader DNSHeader::FromBytes(std::vector<uint8_t> bytes) {
+DNSHeader DNSHeader::FromBytes(std::vector<uint8_t>::iterator& it) {
     // 0,  1  -> id
     // 2,  3  -> flags
     // 4,  5  -> numQuestions
     // 6,  7  -> numAnswers
     // 8,  9  -> numAuthorities
     // 10, 11 -> numAdditionals
+    uint16_t id             = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
+    uint16_t flags          = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
+    uint16_t numQuestions   = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
+    uint16_t numAnswers     = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
+    uint16_t numAuthorities = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
+    uint16_t numAdditionals = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
     return DNSHeader{
-        static_cast<uint16_t>((bytes[0]  << 8) | bytes[1]),
-        static_cast<uint16_t>((bytes[2]  << 8) | bytes[3]),
-        static_cast<uint16_t>((bytes[4]  << 8) | bytes[5]),
-        static_cast<uint16_t>((bytes[6]  << 8) | bytes[7]),
-        static_cast<uint16_t>((bytes[8]  << 8) | bytes[9]),
-        static_cast<uint16_t>((bytes[10] << 8) | bytes[11]),
+        id,
+        flags,
+        numQuestions,
+        numAnswers,
+        numAuthorities,
+        numAdditionals,
     };
 }
 
