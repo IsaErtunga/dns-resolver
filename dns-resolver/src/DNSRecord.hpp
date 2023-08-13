@@ -3,6 +3,9 @@
 
 #include <cstdint>
 #include <vector>
+#include <iostream>
+#include "DNSQueryBuilder.hpp"
+#include <bitset>
 
 class DNSRecord {
 private:

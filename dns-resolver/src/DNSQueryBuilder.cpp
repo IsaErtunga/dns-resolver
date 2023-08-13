@@ -77,5 +77,11 @@ void ParseResponse(std::vector<unsigned char> resp) {
     seg.clear();
     
     // Parse record
-    
+    segEnd += 10;
+    while (i < segEnd) {
+        seg.push_back(static_cast<uint8_t>(resp[i]));
+        i++;
+    }
+    DNSRecord::FromBytes(seg);
+    seg.clear();
 }

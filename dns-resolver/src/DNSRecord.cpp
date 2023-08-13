@@ -13,5 +13,7 @@ DNSRecord::DNSRecord(std::vector<uint8_t> name,
 }
 
 void DNSRecord::FromBytes(std::vector<uint8_t> bytes) {
-    
+    for (const auto& b : bytes) {
+        std::cout << std::bitset<8>(b) << std::endl;
+    }
 }
