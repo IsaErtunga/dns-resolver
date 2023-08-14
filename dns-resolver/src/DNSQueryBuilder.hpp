@@ -12,6 +12,7 @@
 #include "DNSHeader.hpp"
 #include "DNSQuestion.hpp"
 #include "DNSRecord.hpp"
+#include "DNSPacket.hpp"
 
 enum RecordType : uint16_t {
     A = 1,
@@ -27,6 +28,6 @@ std::vector<std::string> split(std::string str, std::string del);
 std::vector<uint8_t> encodeDnsName(std::string domainName);
 std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType);
 std::vector<uint8_t> decodeDomainName(std::vector<uint8_t> resp, std::vector<uint8_t>::iterator& it);
-void ParseResponse(std::vector<unsigned char> resp);
+DNSPacket ParseResponse(std::vector<unsigned char> resp);
 
 #endif /* DNSQueryBuilder_hpp */

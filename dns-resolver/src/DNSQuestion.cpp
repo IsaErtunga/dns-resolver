@@ -7,8 +7,8 @@ DNSQuestion::DNSQuestion(uint16_t type, uint16_t klass, std::vector<uint8_t> nam
 }
 
 DNSQuestion DNSQuestion::FromBytes(std::vector<uint8_t> bytes,
-                                    std::vector<uint8_t>::iterator& it,
-                                    std::vector<uint8_t> (*decodeName)(std::vector<uint8_t> resp, std::vector<uint8_t>::iterator& it)) {
+                                   std::vector<uint8_t>::iterator& it,
+                                   std::vector<uint8_t> (*decodeName)(std::vector<uint8_t> resp, std::vector<uint8_t>::iterator& it)) {
     std::vector<uint8_t> name = decodeName(bytes, it);
     uint16_t type  = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;
     uint16_t klass = static_cast<uint16_t>((*it << 8) | *it+1); it += 2;

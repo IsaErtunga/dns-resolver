@@ -87,9 +87,35 @@ std::vector<uint8_t> decodeDomainName(std::vector<uint8_t> resp, std::vector<uin
     return name;
 }
 
-void ParseResponse(std::vector<unsigned char> resp) {
+DNSPacket ParseResponse(std::vector<unsigned char> resp) {
     std::vector<uint8_t>::iterator it = resp.begin();
     DNSHeader header = DNSHeader::FromBytes(it);
-    DNSQuestion question = DNSQuestion::FromBytes(resp, it, &decodeDomainName);
-    DNSRecord::FromBytes(resp, it, &decodeDomainName);
+    std::vector<DNSQuestion> questions;
+    std::vector<DNSRecord> answers;
+    std::vector<DNSRecord> authorities;
+    std::vector<DNSRecord> additionals;
+    int i;
+    for (i = 0; i < header.GetQdCount(); i++) {
+        questions.push_back(DNSQuestion::FromBytes(resp, it, &decodeDomainName));
+    }
+    
+    for (i = 0; i < header.GetAnCount(); i++) {
+        answers.push_back(DNSRecord::FromBytes(resp, it, &decodeDomainName));
+    }
+
+    for (i = 0; i < header.GetNsCount(); i++) {
+        authorities.push_back(DNSRecord::FromBytes(resp, it, &decodeDomainName));
+    }
+    
+    for (i = 0; i < header.GetArCount(); i++) {
+        additionals.push_back(DNSRecord::FromBytes(resp, it, &decodeDomainName));
+    }
+    
+    return DNSPacket{
+        header,
+        questions,
+        answers,
+        authorities,
+        additionals
+    };
 }
