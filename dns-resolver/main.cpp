@@ -10,6 +10,9 @@ int main(int argc, const char* argv[]) {
     std::vector<unsigned char> resp = socket.SendAndReceive(query);
     
     DNSPacket packet = ParseResponse(resp);
+    for (const auto& i : packet.GetAnswers()[0].GetData()) {
+        std::cout << (unsigned)i << ".";
+    }
     
     std::cout << std::endl;
     return 0;
