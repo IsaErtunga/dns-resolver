@@ -20,7 +20,7 @@ std::vector<DNSRecord> DNSPacket::GetAnswers() {
     return this->answers;
 }
 
-std::vector<DNSRecord> DNSPacket::GetAuthoroties() {
+std::vector<DNSRecord> DNSPacket::GetAuthorities() {
     return this->authorities;
 }
 

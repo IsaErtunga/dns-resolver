@@ -23,7 +23,7 @@ public:
               std::vector<DNSRecord> additionals);
     std::vector<DNSQuestion> GetQuestions();
     std::vector<DNSRecord> GetAnswers();
-    std::vector<DNSRecord> GetAuthoroties();
+    std::vector<DNSRecord> GetAuthorities();
     std::vector<DNSRecord> GetAdditionals();
 };
 

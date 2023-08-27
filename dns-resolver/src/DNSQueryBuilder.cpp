@@ -38,9 +38,9 @@ void printHex(uint32_t val) {
 std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
     std::vector<uint8_t> nameBytes = encodeDomainName(dnsName);
     uint16_t id = rand() % 65535;
-    uint16_t recur = 1 << 8;
+    // uint16_t recur = 1 << 8;
     
-    DNSHeader header{id, recur, 1, 0, 0, 0};
+    DNSHeader header{id, 0, 1, 0, 0, 0};
     DNSQuestion question{recordType, RecordClass::IN, nameBytes};
 
     std::vector<uint8_t> headerBytes = header.ToBytes();
@@ -53,10 +53,13 @@ std::vector<uint8_t> BuildQuery(std::string dnsName, RecordType recordType) {
 }
 
 std::vector<uint8_t> decodeDomainName(std::vector<uint8_t> resp, std::vector<uint8_t>::iterator& it) {
+    // Decodes DNS names by taking compression into account
+    // Reads response bytes. Look for length byte which starts with 11
+    // Extract the offset pointer and inturn the bytes building the name
     std::vector<uint8_t> name;
     while (*it != 0) {
-        // Max length for domain name component is 63
         if (*it > 63) {
+            // Last 6 bits + next byte as pointer
             int offset = (*it & 0x3F) + *(++it);
             int end = offset + resp[offset] + 1;
             int ptr = offset;
