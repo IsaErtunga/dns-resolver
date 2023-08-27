@@ -10,10 +10,10 @@
 		143836532A7EBD3600526417 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836522A7EBD3600526417 /* main.cpp */; };
 		143836672A7FC88700526417 /* DNSHeader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836652A7FC88700526417 /* DNSHeader.cpp */; };
 		1438366A2A7FCD1F00526417 /* DNSQuestion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 143836682A7FCD1F00526417 /* DNSQuestion.cpp */; };
-		1438366D2A80D9B300526417 /* DNSQueryBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1438366B2A80D9B300526417 /* DNSQueryBuilder.cpp */; };
 		147184112A8ABD54005E2EE8 /* DNSPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1471840F2A8ABD54005E2EE8 /* DNSPacket.cpp */; };
 		148C027D2A8578C3001C0364 /* DNSRecord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148C027B2A8578C3001C0364 /* DNSRecord.cpp */; };
 		14E96C742A8553FD000B7052 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E96C722A8553FD000B7052 /* Socket.cpp */; };
+		14F6C6EE2A9B6EB0001E14F6 /* QueryHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14F6C6EC2A9B6EB0001E14F6 /* QueryHandler.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,14 +35,14 @@
 		143836662A7FC88700526417 /* DNSHeader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSHeader.hpp; sourceTree = "<group>"; };
 		143836682A7FCD1F00526417 /* DNSQuestion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSQuestion.cpp; sourceTree = "<group>"; };
 		143836692A7FCD1F00526417 /* DNSQuestion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSQuestion.hpp; sourceTree = "<group>"; };
-		1438366B2A80D9B300526417 /* DNSQueryBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSQueryBuilder.cpp; sourceTree = "<group>"; };
-		1438366C2A80D9B300526417 /* DNSQueryBuilder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSQueryBuilder.hpp; sourceTree = "<group>"; };
 		1471840F2A8ABD54005E2EE8 /* DNSPacket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSPacket.cpp; sourceTree = "<group>"; };
 		147184102A8ABD54005E2EE8 /* DNSPacket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSPacket.hpp; sourceTree = "<group>"; };
 		148C027B2A8578C3001C0364 /* DNSRecord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DNSRecord.cpp; sourceTree = "<group>"; };
 		148C027C2A8578C3001C0364 /* DNSRecord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DNSRecord.hpp; sourceTree = "<group>"; };
 		14E96C722A8553FD000B7052 /* Socket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
 		14E96C732A8553FD000B7052 /* Socket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Socket.hpp; sourceTree = "<group>"; };
+		14F6C6EC2A9B6EB0001E14F6 /* QueryHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueryHandler.cpp; sourceTree = "<group>"; };
+		14F6C6ED2A9B6EB0001E14F6 /* QueryHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QueryHandler.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,12 +90,12 @@
 				143836692A7FCD1F00526417 /* DNSQuestion.hpp */,
 				148C027B2A8578C3001C0364 /* DNSRecord.cpp */,
 				148C027C2A8578C3001C0364 /* DNSRecord.hpp */,
-				1438366B2A80D9B300526417 /* DNSQueryBuilder.cpp */,
-				1438366C2A80D9B300526417 /* DNSQueryBuilder.hpp */,
 				1471840F2A8ABD54005E2EE8 /* DNSPacket.cpp */,
 				147184102A8ABD54005E2EE8 /* DNSPacket.hpp */,
 				14E96C722A8553FD000B7052 /* Socket.cpp */,
 				14E96C732A8553FD000B7052 /* Socket.hpp */,
+				14F6C6EC2A9B6EB0001E14F6 /* QueryHandler.cpp */,
+				14F6C6ED2A9B6EB0001E14F6 /* QueryHandler.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 			files = (
 				143836672A7FC88700526417 /* DNSHeader.cpp in Sources */,
 				143836532A7EBD3600526417 /* main.cpp in Sources */,
-				1438366D2A80D9B300526417 /* DNSQueryBuilder.cpp in Sources */,
 				1438366A2A7FCD1F00526417 /* DNSQuestion.cpp in Sources */,
 				148C027D2A8578C3001C0364 /* DNSRecord.cpp in Sources */,
+				14F6C6EE2A9B6EB0001E14F6 /* QueryHandler.cpp in Sources */,
 				14E96C742A8553FD000B7052 /* Socket.cpp in Sources */,
 				147184112A8ABD54005E2EE8 /* DNSPacket.cpp in Sources */,
 			);

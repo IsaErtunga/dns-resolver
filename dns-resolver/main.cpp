@@ -1,4 +1,4 @@
-#include "src/DNSQueryBuilder.hpp"
+#include "src/QueryHandler.hpp"
 #include "src/Socket.hpp"
 #include "src/DNSPacket.hpp"
 

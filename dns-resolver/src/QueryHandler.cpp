@@ -1,4 +1,4 @@
-#include "DNSQueryBuilder.hpp"
+#include "QueryHandler.hpp"
 
 std::vector<uint8_t> encodeDomainName(std::string domainName) {
     std::vector<uint8_t> encoded;
